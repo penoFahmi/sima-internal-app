@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('agenda_user', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('agenda_id')->constrained()->onDelete('cascade');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            // $table->string('status')->default('invited'); // Opsional: "invited", "accepted", "declined"
             $table->timestamps();
         });
     }

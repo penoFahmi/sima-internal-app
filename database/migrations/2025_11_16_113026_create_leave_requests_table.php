@@ -13,6 +13,17 @@ return new class extends Migration
     {
         Schema::create('leave_requests', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade'); // Staf yang mengajukan
+            $table->foreignId('approver_id')->nullable()->constrained('users'); // Pimpinan yang menyetujui
+
+            $table->string('type'); // "Cuti Tahunan", "Sakit", "Izin", "Dinas"
+            $table->date('start_date');
+            $table->date('end_date');
+            $table->text('reason');
+            $table->string('status')->default('pending'); // "pending", "approved", "rejected"
+            $table->timestamp('approved_at')->nullable();
+            $table->text('rejection_reason')->nullable();
+
             $table->timestamps();
         });
     }

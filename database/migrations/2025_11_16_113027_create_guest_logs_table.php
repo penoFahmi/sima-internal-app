@@ -13,6 +13,12 @@ return new class extends Migration
     {
         Schema::create('guest_logs', function (Blueprint $table) {
             $table->id();
+            $table->string('guest_name');
+            $table->string('guest_from'); // Misal: "Dinas Kominfo"
+            $table->text('purpose'); // Keperluan
+            $table->foreignId('host_user_id')->constrained('users'); // Bertemu dengan siapa
+            $table->timestamp('check_in')->useCurrent();
+            $table->timestamp('check_out')->nullable();
             $table->timestamps();
         });
     }
